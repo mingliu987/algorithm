@@ -1,0 +1,46 @@
+#Question 1
+
+import timeit
+import matplotlib.pyplot as plt
+
+def fibonacci_top_down(n):
+    if n <= 2:
+        return 1
+    return fibonacci_top_down(n-1) + fibonacci_top_down(n-2)
+
+
+def fibonacci_bottom_up(n):
+    fib = [0] * (n + 1)
+    fib[1] = 1
+    for i in range(2, n + 1):
+        fib[i] = fib[i - 1] + fib[i - 2]
+    return fib[n]
+    
+    
+execution_times_top_down = []
+execution_times_bottom_up = []
+
+for i in range(1, 101):
+    execution_time_top_down_ = timeit.timeit(lambda: fibonacci_top_down(i), number=1)
+    execution_times_top_down.append(execution_time_top_down_)
+
+    
+    print(f"Top-down: F({i}) time: {execution_time_top_down_} seconds")
+
+    execution_time_bottom_up_ = timeit.timeit(lambda: fibonacci_bottom_up(i), number=1)
+    execution_times_bottom_up.append(execution_time_bottom_up_)
+    print(f"Bottom-up: F({i}) time: {execution_time_bottom_up_} seconds")
+    
+    if execution_time_top_down_ > 43200 or execution_time_bottom_up_ > 43200:  # If it takes more than 12 hours, stop
+        max_n = i
+        print(f"Execution time exceeded 12 hours for F({i}), stopping.")
+        break
+
+
+plt.plot(range(1, max_n), execution_times_top_down, label='Top-down')
+plt.plot(range(1, max_n), execution_times_bottom_up, label='Bottom-up')
+plt.title("Execution Time of Fibonacci Numbers F(1) to F(100)")
+plt.xlabel("Fibonacci Number")
+plt.ylabel("Execution Time (seconds)")
+plt.legend()
+plt.show()
