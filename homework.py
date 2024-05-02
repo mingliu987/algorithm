@@ -49,7 +49,7 @@ plt.show()
 import time
 import matplotlib.pyplot as plt
 
-# Bottom-up (dynamic programming) implementation of Fibonacci function
+# Bottom-up 
 def fibonacci_bottom_up_with_count(n):
     fib = [0] * (n + 1)
     fib[1] = 1
@@ -79,10 +79,10 @@ plt.show()
 
 
 
-# Global variable to count the occurrences of F(4) computations
+
 fib_4_count = 0
 fib_4_counts = []
-# Top-down (pure recursive) implementation of Fibonacci function with memoization
+
 def fibonacci_top_down_with_count(n, memo={}):
     global fib_4_count
     
@@ -104,7 +104,7 @@ def fibonacci_top_down_with_count(n, memo={}):
     memo[n] = fibonacci_top_down_with_count(n - 1, memo) + fibonacci_top_down_with_count(n - 2, memo)
     return memo[n]
 
-# Example usage
+
 for i in range(5, 51):
     fib_4_counts.append(fibonacci_top_down_with_count(i))
     print(f"F(4) computed during calculation of F({i})")
